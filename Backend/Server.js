@@ -1,13 +1,22 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-app.use(cors())
 require('dotenv').config()
 
-app.get("/" , ( req , res ) =>{
-    res.json("backend working with api ")
-})
+const taskRouter = require("./routes/TaskRouter")
+const { default: mongoose } = require('mongoose')
 
-app.listen(process.env.PORT , () => {
-    console.log("server is running on port " + process.env.PORT)
+app.use(cors())
+
+//routes 
+app.use("/api/tasks" , taskRouter)
+
+//database connection
+mongoose.connect(process.env.MongoDB)
+.then(() => {
+    app.listen(process.env.PORT , () => {
+        console.log("Server is running on port " + process.env.PORT)
+    })
+}).catch((error)=> {
+    console.log(error)
 })
