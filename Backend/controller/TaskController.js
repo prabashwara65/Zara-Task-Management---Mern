@@ -22,7 +22,9 @@ const getSingleTask = async (req , res) => {
 }
 
 
+// update task 
 
+// delete task
 
 module.exports = {
     getAllTasks,
